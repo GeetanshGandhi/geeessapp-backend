@@ -1,6 +1,5 @@
 package com.backend.geeessapp;
 
-import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,7 +8,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.security.URIParameter;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -42,11 +40,18 @@ public class UpdateService {
             }
             updateRepository.save(update);
         } catch (IOException E){
+            System.out.println("Error in saving: ");
             E.printStackTrace();
         }
     }
 
     public Updates getLatestForUser(String user){
+        //deleting older records
+//        LocalDateTime cutoff = LocalDateTime.now().minusHours(36);
+//        Date cutoffDate = java.sql.Timestamp.valueOf(cutoff);
+//        updateRepository.deleteOlderRecords(cutoffDate);
+
+        //actual getLatestForUser starts here
         String author = user.equals("geetansh")? "shreshtha":"geetansh";
         Updates update = updateRepository.getLatestForUser(author);
         if(update == null){
@@ -54,20 +59,20 @@ public class UpdateService {
         }
         return update;
     }
-    public List<Updates> getAllForUser(String user){
-        String author = user.equals("geetansh")? "shreshtha":"geetansh";
-        return updateRepository.getAllByUser(author);
-    }
+
     public void deleteall(){
         updateRepository.deleteAll();
     }
     public List<Updates> getall(){
-        return updateRepository.findAll();
+        List<Updates> all = updateRepository.findAll();
+        all.sort((a1, a2) -> a2.getDate().compareTo(a1.getDate()));
+        return all;
     }
 
-    public void tempUpdate(){
-        Updates update = updateRepository.findById(2).get();
-        update.setAuthor("shreshtha");
-        updateRepository.save(update);
+    public void temp(){
+        List<Updates> all = getall();
+        Updates curr = all.get(0);
+        curr.setAuthor("shreshtha");
+        updateRepository.save(curr);
     }
 }

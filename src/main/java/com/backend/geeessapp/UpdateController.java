@@ -3,12 +3,6 @@ package com.backend.geeessapp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -37,8 +31,8 @@ public class UpdateController{
         updateService.deleteall();
     }
 
-    @GetMapping("tempp")
+    @GetMapping("/temp")
     public void temp(){
-        updateService.tempUpdate();
+        updateService.temp();
     }
 }
