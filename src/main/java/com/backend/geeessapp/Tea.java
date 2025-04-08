@@ -10,6 +10,7 @@ public class Tea {
     @Id
     private int id;
     private String author;
+    @Column(columnDefinition = "varchar(1000)")
     private String content;
 
     @Column(name = "creation_datetime")

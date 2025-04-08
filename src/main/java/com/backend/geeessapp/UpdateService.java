@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -47,9 +48,9 @@ public class UpdateService {
 
     public Updates getLatestForUser(String user){
         //deleting older records
-//        LocalDateTime cutoff = LocalDateTime.now().minusHours(36);
-//        Date cutoffDate = java.sql.Timestamp.valueOf(cutoff);
-//        updateRepository.deleteOlderRecords(cutoffDate);
+        LocalDateTime cutoff = LocalDateTime.now().minusHours(36);
+        Date cutoffDate = java.sql.Timestamp.valueOf(cutoff);
+        updateRepository.deleteOlderRecords(cutoffDate);
 
         //actual getLatestForUser starts here
         String author = user.equals("geetansh")? "shreshtha":"geetansh";

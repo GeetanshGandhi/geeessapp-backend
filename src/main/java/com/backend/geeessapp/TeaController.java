@@ -1,13 +1,11 @@
 package com.backend.geeessapp;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@RestController
 @RequestMapping("/tea")
 @CrossOrigin
 public class TeaController {
@@ -16,8 +14,18 @@ public class TeaController {
     TeaService teaService;
 
     @PostMapping("/save")
-    public void save(@RequestParam("author") String author,
+    public Tea save(@RequestParam("author") String author,
                      @RequestParam("content") String content){
-        teaService.save(author, content);
+        return teaService.save(author, content);
+    }
+
+    @GetMapping("/getAll")
+    public List<Tea> getall(){
+        return teaService.getAll();
+    }
+
+    @GetMapping("/deleteall")
+    void deleteall(){
+        teaService.deleteall();
     }
 }
