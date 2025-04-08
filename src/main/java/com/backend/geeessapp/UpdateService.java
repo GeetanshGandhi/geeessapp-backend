@@ -8,7 +8,10 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -28,7 +31,9 @@ public class UpdateService {
             update.setImage(output.toByteArray());
             update.setCaption(caption);
             update.setAuthor(author);
-            update.setDate(new Date());
+            ZonedDateTime zonal = ZonedDateTime.now(ZoneId.of("Asia/Kolkata"));
+            Instant inst = zonal.toInstant();
+            update.setDate(Date.from(inst));
             List<Updates> updates = updateRepository.findAll();
             HashSet<Integer> hs = new HashSet<>();
             for(Updates u: updates){
