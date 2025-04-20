@@ -35,4 +35,9 @@ public class UpdateController{
     public void temp(){
         updateService.temp();
     }
+
+    @GetMapping("/cron")
+    public void donothing(){
+
+    }
 }
